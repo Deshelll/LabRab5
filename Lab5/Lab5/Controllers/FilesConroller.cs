@@ -44,25 +44,3 @@ public class FilesController : ControllerBase
             return BadRequest("Файл не был загружен.");
         }
 
-        using (var memoryStream = new MemoryStream())
-        {
-            await fileUpload.File.CopyToAsync(memoryStream);
-            var newFile = new FileModel
-            {
-                FileName = fileUpload.File.FileName,
-                ContentType = fileUpload.File.ContentType,
-                Data = memoryStream.ToArray()
-            };
-            _context.Files.Add(newFile);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetFile), new { id = newFile.ID }, newFile);
-        }
-    }
-
-  
-
-    public class FileUploadModel
-    {
-        public IFormFile File { get; set; }
-    }
-}
