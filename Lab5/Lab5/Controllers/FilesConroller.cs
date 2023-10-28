@@ -59,18 +59,7 @@ public class FilesController : ControllerBase
         }
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteFile(int id)
-    {
-        var file = await _context.Files.FindAsync(id);
-        if (file == null)
-        {
-            return NotFound();
-        }
-        _context.Files.Remove(file);
-        await _context.SaveChangesAsync();
-        return NoContent();
-    }
+  
 
     public class FileUploadModel
     {
